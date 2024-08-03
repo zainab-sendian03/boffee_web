@@ -1,16 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:hello/view/addpage.dart';
-import 'package:hello/view/homepage.dart';
-import 'package:hello/view/login.dart';
-import 'package:hello/view/Navigation.dart';
-import 'package:hello/forgetpassword/getcode.dart';
-import 'package:hello/forgetpassword/maiadd.dart';
-
-import 'view/test.dart';
-
+import 'package:hello/view/auth/login.dart';
 
 void main() {
-  runApp( MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -19,11 +11,9 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(
-      
-    home: SideMenue(),
-    
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: LoginPage(),
     );
-   
   }
 }

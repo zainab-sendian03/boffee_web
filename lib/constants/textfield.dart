@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hello/core/color.dart';
+import 'package:hello/constants/color.dart';
 
 class CustomTextFormField extends StatefulWidget {
   final String hintText;
@@ -24,7 +24,8 @@ class CustomTextFormField extends StatefulWidget {
   @override
   _CustomTextFormFieldState createState() => _CustomTextFormFieldState();
 }
- class _CustomTextFormFieldState extends State<CustomTextFormField> {
+
+class _CustomTextFormFieldState extends State<CustomTextFormField> {
   late bool _visPassword;
   late TextEditingController conf_pass;
 
@@ -133,7 +134,7 @@ Future<dynamic> alert(
               fontWeight: FontWeight.w400,
             ),
           ),
-           actions: <Widget>[
+          actions: <Widget>[
             Center(
               child: ElevatedButton(
                 onPressed: () => Navigator.pop(context),

@@ -17,7 +17,8 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final user_name = TextEditingController();
   final password = TextEditingController();
-  bool passwordVisible = true;
+  bool _visPassword = false;
+
   final Crud _crud = Crud();
   GlobalKey<FormState> formstats = GlobalKey();
   bool isLoading = false;
@@ -33,6 +34,10 @@ class _LoginPageState extends State<LoginPage> {
           {
             "user_name": user_name.text,
             "password": password.text,
+          },
+          headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
           },
         );
         setState(() {
@@ -102,7 +107,7 @@ class _LoginPageState extends State<LoginPage> {
               child: Column(
                 children: [
                   TextFormField(
-                    // validator: (valid) => validInput(valid!, 20, 2),
+                    validator: (valid) => validInput(valid!, 20, 2),
                     decoration: InputDecoration(
                       hintText: 'User name',
                       hintStyle: TextStyle(
@@ -116,9 +121,23 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   const SizedBox(height: 40),
                   TextFormField(
-                    //   validator: (valid) => validInput(valid!, 15, 7),
-                    obscureText: true,
+                    validator: (valid) => validInput(valid!, 15, 7),
+                    obscureText: _visPassword,
                     decoration: InputDecoration(
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _visPassword
+                              ? Icons.visibility_off
+                              : Icons.visibility,
+                          color: medium_Brown,
+                          size: 21,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _visPassword = !_visPassword;
+                          });
+                        },
+                      ),
                       focusedBorder: UnderlineInputBorder(
                         borderSide: BorderSide(color: dark_Brown, width: 2.5),
                       ),
@@ -153,15 +172,11 @@ class _LoginPageState extends State<LoginPage> {
                   const SizedBox(height: 40),
                   Center(
                     child: ElevatedButton(
-                      onPressed: () {
-                        // await logIn();
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                              builder: (context) => const SideMenue()),
-                        );
+                      onPressed: () async {
+                        await logIn();
                       },
                       style: ElevatedButton.styleFrom(
-                        padding: EdgeInsets.only(
+                        padding: const EdgeInsets.only(
                             left: 80, right: 80, top: 20, bottom: 20),
                         backgroundColor: Beige,
                         textStyle: const TextStyle(fontSize: 18),
@@ -177,7 +192,7 @@ class _LoginPageState extends State<LoginPage> {
                   if (isLoading)
                     Center(
                       child: Padding(
-                        padding: EdgeInsets.only(
+                        padding: const EdgeInsets.only(
                           top: 50,
                         ),
                         child: Center(

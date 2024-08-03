@@ -1,6 +1,6 @@
 import 'package:easy_sidemenu/easy_sidemenu.dart';
 import 'package:flutter/material.dart';
-import 'package:hello/core/color.dart';
+import 'package:hello/constants/color.dart';
 import 'package:hello/view/addpage.dart';
 import 'package:hello/view/homepage.dart';
 import 'package:hello/view/login.dart';

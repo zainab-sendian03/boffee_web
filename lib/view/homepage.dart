@@ -1,14 +1,10 @@
-import 'package:dotted_border/dotted_border.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:hello/core/color.dart';
-import 'package:hello/view/Navigation.dart';
-import 'package:hello/view/test.dart';
+import 'package:hello/constants/color.dart';
 
 class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -58,12 +54,12 @@ class _HomePageState extends State<HomePage> {
                         child: Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
-                            image: DecorationImage(
+                            image: const DecorationImage(
                               image: AssetImage('assets/images/web book.png'),
                               fit: BoxFit.cover,
                             ),
                           ),
-                          child: Stack(
+                          child: const Stack(
                             children: [
                               Positioned(
                                 bottom: 10,
@@ -120,12 +116,12 @@ class _HomePageState extends State<HomePage> {
                         child: Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(25),
-                            image: DecorationImage(
+                            image: const DecorationImage(
                               image: AssetImage('assets/images/web book.png'),
                               fit: BoxFit.cover,
                             ),
                           ),
-                          child: Stack(
+                          child: const Stack(
                             children: [
                               Positioned(
                                 bottom: 10,
@@ -179,7 +175,7 @@ class _HomePageState extends State<HomePage> {
                     ])),
           )),
       Padding(
-        padding: EdgeInsets.only(left: 30, top: 30),
+        padding: const EdgeInsets.only(left: 30, top: 30),
         child: Align(
           alignment: Alignment.topLeft,
           child: Text(
@@ -194,12 +190,11 @@ class _HomePageState extends State<HomePage> {
               itemCount: 4,
               itemBuilder: (BuildContext context, int index) {
                 return Padding(
-                  padding: const EdgeInsets.only( 
+                  padding: const EdgeInsets.only(
                     left: 30,
-                    
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.only(top: 15 , bottom: 20),
+                    padding: const EdgeInsets.only(top: 15, bottom: 20),
                     child: Stack(
                       children: [
                         Container(
@@ -218,8 +213,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(top: 10
-                          , left: 12),
+                          padding: const EdgeInsets.only(top: 10, left: 12),
                           //صورة
                           child: Row(
                             children: [
@@ -231,45 +225,44 @@ class _HomePageState extends State<HomePage> {
                                   color: Light_Brown,
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 20,
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(bottom: 50),
                                 child: Column(
-                                    // mainAxisAlignment: MainAxisAlignment.start, // إضافة هذه السطر لضبط المحاذاة
-                                    //crossAxisAlignment: CrossAxisAlignment.start,
+                                  // mainAxisAlignment: MainAxisAlignment.start, // إضافة هذه السطر لضبط المحاذاة
+                                  //crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text('Book_name',
-                                        style: TextStyle(color: dark_Brown,
-                                        fontSize: 19,
-                                        )
-                                                                                ),
-                                
-                                              SizedBox(
+                                        style: TextStyle(
+                                          color: dark_Brown,
+                                          fontSize: 19,
+                                        )),
+                                    const SizedBox(
                                       height: 9,
                                     ),
-                                      Text('Author_name',
-                                        style: TextStyle(color: dark_Brown,
-                                        fontSize: 19,
-                                        )
-                        ),
-                        SizedBox(height: 10,),
-                        RatingBarIndicator(
-                      rating: 2,
-                      unratedColor: Colors.amber.withAlpha(50),
-                      itemCount: 5,
-                      itemSize: 30.0,
-                      itemBuilder: (context, _) => const Icon(
-                        Icons.star,
-                        color: Colors.amber,
-                      ),
-                    ),
-                          
+                                    Text('Author_name',
+                                        style: TextStyle(
+                                          color: dark_Brown,
+                                          fontSize: 19,
+                                        )),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    RatingBarIndicator(
+                                      rating: 2,
+                                      unratedColor: Colors.amber.withAlpha(50),
+                                      itemCount: 5,
+                                      itemSize: 30.0,
+                                      itemBuilder: (context, _) => const Icon(
+                                        Icons.star,
+                                        color: Colors.amber,
+                                      ),
+                                    ),
                                   ],
                                 ),
                               ),
-                            
                             ],
                           ),
                         )

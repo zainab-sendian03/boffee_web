@@ -1,43 +1,35 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 //import 'package:flutter/widgets.dart';
-import 'package:hello/core/color.dart';
-import 'package:hello/view/Navigation.dart';
-import 'package:hello/view/test.dart';
+import 'package:hello/constants/color.dart';
 
 class CustomFloatingActionButton extends StatelessWidget {
-  
   @override
   Widget build(BuildContext context) {
-   
-    return  DottedBorder(
+    return DottedBorder(
       color: medium_Brown,
       borderType: BorderType.RRect,
       dashPattern: [6, 3],
       strokeWidth: 3,
       radius: Radius.circular(12),
       child: InkWell(
-            onTap: (){
-              
-            },
-          
-      child: Container(
-        width: 50.0,
-        height: 50.0,
-        decoration: BoxDecoration(
-          color: Beige,
-          borderRadius: BorderRadius.circular(12),
-          
-        ),
-        child: Center(
-          child: Icon(
-            Icons.add,
-            color: Colors.white,
-            size: 32.0,
+        onTap: () {},
+        child: Container(
+          width: 50.0,
+          height: 50.0,
+          decoration: BoxDecoration(
+            color: Beige,
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Center(
+            child: Icon(
+              Icons.add,
+              color: Colors.white,
+              size: 32.0,
+            ),
           ),
         ),
       ),
-    ),
     );
   }
 }
@@ -71,16 +63,14 @@ class CustomFloatingActionButton extends StatelessWidget {
 //             });
 //       }
 
-
 class CustomContainerTabs extends StatefulWidget {
   @override
   _CustomContainerTabsState createState() => _CustomContainerTabsState();
 }
 
 class _CustomContainerTabsState extends State<CustomContainerTabs> {
-  int _selectedIndex = 0; 
+  int _selectedIndex = 0;
 
-    
   final List<String> _tabTitles = [
     'Novel',
     'Islamic',
@@ -102,9 +92,8 @@ class _CustomContainerTabsState extends State<CustomContainerTabs> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
       body: Padding(
-        padding: const EdgeInsets.only(top: 30 , left:30),
+        padding: const EdgeInsets.only(top: 30, left: 30),
         child: Column(
           children: [
             Row(
@@ -137,85 +126,78 @@ class _CustomContainerTabsState extends State<CustomContainerTabs> {
                 );
               }),
             ),
-             Expanded(
+            Expanded(
               child: _tabContents[_selectedIndex],
             ),
-           Padding(
-             padding: const EdgeInsets.only(right: 50, bottom: 40),
-             child: Align(
-              alignment: Alignment.bottomRight,
-              child:  CustomFloatingActionButton()),
-           ), 
+            Padding(
+              padding: const EdgeInsets.only(right: 50, bottom: 40),
+              child: Align(
+                  alignment: Alignment.bottomRight,
+                  child: CustomFloatingActionButton()),
+            ),
           ],
         ),
       ),
     );
   }
 }
+
 class GridViewExample extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return 
-     GridView.builder(
-       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-         crossAxisCount: 4,
-         crossAxisSpacing: 1,
-         mainAxisSpacing: 4,
-       ),
-       itemCount: 3,
-       itemBuilder: (BuildContext context, int index) {
-         return Padding(
-           padding: const EdgeInsets.only(
-               top: 40, left: 50,),
-           child: GestureDetector(
-             onTap: () {
-             // alert_report(context,TextEditingController());
-          
-             },
-             child: Stack(
-             
-               children: [
-                 
-                 Container(
-                   width: 200,
-                   height: 190,
-                   decoration: BoxDecoration(
-                     borderRadius: BorderRadius.circular(10),
-                     color: white,
-                      // border: Border.all(
-                      //    color: medium_Brown,
-                      //  ),
-                     boxShadow: [
-                       BoxShadow(
-                         color: Beige,
-                         offset: const Offset(0, 1),
-                         blurRadius: 10,
-                       )
-                     ],
-                   ),
-                 ),
-                 Padding(
-                   padding: const EdgeInsets.only(
-                       top: 8, left: 15, right: 10),
-                   child: Container(
-                     height: 110,
-                     width: 170,
-                     decoration: BoxDecoration(
-                       borderRadius: BorderRadius.circular(10),
-                      
-                       color: Light_Brown,
-                     ),
-                   ),
-                 )
-               ],
-             ),
-           ),
-         );
-       },
-     );
-     
+    return GridView.builder(
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 4,
+        crossAxisSpacing: 1,
+        mainAxisSpacing: 4,
+      ),
+      itemCount: 3,
+      itemBuilder: (BuildContext context, int index) {
+        return Padding(
+          padding: const EdgeInsets.only(
+            top: 40,
+            left: 50,
+          ),
+          child: GestureDetector(
+            onTap: () {
+              // alert_report(context,TextEditingController());
+            },
+            child: Stack(
+              children: [
+                Container(
+                  width: 200,
+                  height: 190,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: white,
+                    // border: Border.all(
+                    //    color: medium_Brown,
+                    //  ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Beige,
+                        offset: const Offset(0, 1),
+                        blurRadius: 10,
+                      )
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 8, left: 15, right: 10),
+                  child: Container(
+                    height: 110,
+                    width: 170,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Light_Brown,
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
+        );
+      },
+    );
   }
-  }
-  
-
-        
+}

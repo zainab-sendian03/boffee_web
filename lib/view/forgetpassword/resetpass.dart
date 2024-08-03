@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hello/core/color.dart';
-import 'package:hello/view/login.dart';
+import 'package:hello/constants/color.dart';
+import 'package:hello/view/auth/login.dart';
 
 class resetpass extends StatefulWidget {
   const resetpass({super.key});
@@ -33,7 +33,7 @@ class _resetpassState extends State<resetpass> {
               child: Center(
                 child: Text("Forget password?",
                     style: TextStyle(
-                       fontFamily: 'Inconsolata-Bold',
+                        fontFamily: 'Inconsolata-Bold',
                         fontSize: 35,
                         color: dark_Brown,
                         fontWeight: FontWeight.bold)),
@@ -47,9 +47,9 @@ class _resetpassState extends State<resetpass> {
                     "Your new password must be different from previously used password",
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                        fontSize: 23,
-                        color: medium_Brown,
-                       )),
+                      fontSize: 23,
+                      color: medium_Brown,
+                    )),
               )),
           Padding(
               padding: const EdgeInsets.only(right: 400, left: 400, top: 320),
