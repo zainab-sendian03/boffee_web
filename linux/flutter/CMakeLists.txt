@@ -11,10 +11,10 @@ include(${EPHEMERAL_DIR}/generated_config.cmake)
 
 # Serves the same purpose as list(TRANSFORM ... PREPEND ...),
 # which isn't available in 3.10.
-function(list_prepend LIST_NAME PREFIX)
+function(list_prepend LIST_NAME prefIX)
     set(NEW_LIST "")
     foreach(element ${${LIST_NAME}})
-        list(APPEND NEW_LIST "${PREFIX}${element}")
+        list(APPEND NEW_LIST "${prefIX}${element}")
     endforeach(element)
     set(${LIST_NAME} "${NEW_LIST}" PARENT_SCOPE)
 endfunction()

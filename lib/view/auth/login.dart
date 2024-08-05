@@ -17,7 +17,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final user_name = TextEditingController();
   final password = TextEditingController();
-  bool _visPassword = false;
+  bool _visPassword = true;
 
   final Crud _crud = Crud();
   GlobalKey<FormState> formstats = GlobalKey();
@@ -30,16 +30,12 @@ class _LoginPageState extends State<LoginPage> {
     if (formstats.currentState!.validate()) {
       try {
         var response = await _crud.postrequest(
-          linklogin,
-          {
-            "user_name": user_name.text,
-            "password": password.text,
-          },
-          headers: {
-            "Accept": "application/json",
-            "Content-Type": "application/json",
-          },
-        );
+            linklogin,
+            {
+              "user_name": user_name.text,
+              "password": password.text,
+            },
+            headers: getoptions2());
         setState(() {
           isLoading = false;
         });
@@ -47,13 +43,13 @@ class _LoginPageState extends State<LoginPage> {
         print("Response: $response");
 
         if (response is Map && response['success'] == true) {
-          Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => const SideMenue()),
-          );
           pref?.setString("id", response['data']['id'].toString());
           pref?.setString("user_name", response['data']['user_name']);
           pref?.setString("password", response['data']['password']);
           pref?.setString("token", response['data']['token']);
+          Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => const SideMenue()),
+          );
         } else {
           alert(
               formstats.currentContext!,
@@ -121,7 +117,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   const SizedBox(height: 40),
                   TextFormField(
-                    validator: (valid) => validInput(valid!, 15, 7),
+                    validator: (valid) => validInput(valid!, 15, 6),
                     obscureText: _visPassword,
                     decoration: InputDecoration(
                       suffixIcon: IconButton(

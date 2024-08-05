@@ -2,13 +2,14 @@ import 'package:easy_sidemenu/easy_sidemenu.dart';
 import 'package:flutter/material.dart';
 import 'package:hello/constants/color.dart';
 import 'package:hello/view/addpage.dart';
+import 'package:hello/view/auth/login.dart';
 import 'package:hello/view/homepage.dart';
-import 'package:hello/view/login.dart';
+import 'package:hello/view/statistics.dart';
 
 class SideMenue extends StatefulWidget {
   const SideMenue({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   _SideMenueState createState() => _SideMenueState();
@@ -57,7 +58,7 @@ class _SideMenueState extends State<SideMenue> {
                     children: [
                       Image.asset('assets/images/logo.png',
                           width: 40, height: 40),
-                      SizedBox(width: 15),
+                      const SizedBox(width: 15),
                       Text(
                         'Boffee',
                         style: TextStyle(
@@ -69,7 +70,7 @@ class _SideMenueState extends State<SideMenue> {
                     ],
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 25,
                 ),
                 ConstrainedBox(
@@ -123,22 +124,22 @@ class _SideMenueState extends State<SideMenue> {
                 onTap: (index, _) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => LoginPage()),
+                    MaterialPageRoute(builder: (context) => const LoginPage()),
                   );
                 },
                 title: 'Exit',
-                icon: Icon(Icons.exit_to_app),
+                icon: const Icon(Icons.exit_to_app),
               ),
             ],
           ),
           Expanded(
             child: ClipRRect(
-              borderRadius: BorderRadius.only(
+              borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(30.0),
                 bottomLeft: Radius.circular(30.0),
               ),
               child: Container(
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(30.0),
@@ -148,15 +149,10 @@ class _SideMenueState extends State<SideMenue> {
                 child: PageView(
                   controller: pageController,
                   children: [
-                    HomePage(),
+                    const HomePage(),
                     CustomContainerTabs(),
-                    Center(
-                      child: Text(
-                        'statistics',
-                        style: TextStyle(fontSize: 35),
-                      ),
-                    ),
-                    Center(
+                    Statistics(),
+                    const Center(
                       child: Text(
                         'Setting',
                         style: TextStyle(fontSize: 35),

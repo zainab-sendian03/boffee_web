@@ -40,6 +40,7 @@ dependencies:
   http: ^1.2.2
   rounded_tabbar_widget: ^0.0.2
   shared_preferences: ^2.2.3
+  syncfusion_flutter_charts: ^20.3.60 
 
 dev_dependencies:
   flutter_lints: ^3.0.0

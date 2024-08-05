@@ -2,17 +2,15 @@ String linkservername = "http://localhost:8000";
 
 //auth
 String linklogin = "$linkservername/api/login";
-String link_userDetails = "$linkservername/api/user/show";
 
-//rating
-String link_rating = "$linkservername/api/rate";
-String link_AVGrating = "$linkservername/api/avg";
+//reset password
+String link_Email = "$linkservername/api/password/email";
+String link_checkCode = "$linkservername/api/password/code/check";
+String link_Reset = "$linkservername/api/password/reset";
 
-//note
-String link_storeNote = "$linkservername/api/note";
-String link_EditNote = "$linkservername/api/update";
-String link_showNote = "$linkservername/api/notes";
+//statistics
+String link_levels = "$linkservername/api/level/count";
+String link_age = "$linkservername/api/ages";
 
 //book
-String link_progress = "$linkservername/api/shelf";
-String link_enough = "$linkservername/api/book";
+String link_mostRating = "$linkservername/api/mostRating";
