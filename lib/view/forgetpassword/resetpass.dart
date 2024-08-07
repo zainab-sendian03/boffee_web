@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:hello/config/options.dart';
-import 'package:hello/constants/color.dart';
-import 'package:hello/constants/crud.dart';
-import 'package:hello/constants/linksapi.dart';
-import 'package:hello/constants/textfield.dart';
+import 'package:hello/core/config/options.dart';
+import 'package:hello/core/constants/color.dart';
+import 'package:hello/core/constants/crud.dart';
+import 'package:hello/core/constants/linksapi.dart';
+import 'package:hello/core/constants/textfield.dart';
 import 'package:hello/view/auth/login.dart';
 
 class resetpass extends StatefulWidget {

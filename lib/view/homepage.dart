@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hello/constants/color.dart';
+import 'package:hello/core/constants/color.dart';
 import 'package:hello/view/mostRating.dart';
 
 class HomePage extends StatefulWidget {

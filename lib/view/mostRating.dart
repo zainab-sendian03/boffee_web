@@ -1,8 +1,10 @@
 import 'dart:convert';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:hello/constants/color.dart';
-import 'package:hello/constants/linksapi.dart';
+import 'package:hello/core/constants/color.dart';
+import 'package:hello/core/constants/linksapi.dart';
 import 'package:http/http.dart' as http;
 
 class MostRating extends StatefulWidget {
@@ -73,9 +75,6 @@ class _MostRatingState extends State<MostRating> {
                 itemCount: data.length,
                 itemBuilder: (BuildContext context, int index) {
                   var item = data[index];
-                  String imageUrl = "$linkservername${item['cover']}";
-                  print("Image URL: $imageUrl");
-
                   return Padding(
                     padding:
                         const EdgeInsets.only(top: 15, bottom: 20, left: 30),
@@ -97,38 +96,17 @@ class _MostRatingState extends State<MostRating> {
                           ),
                           child: Row(
                             children: [
-                              Container(
-                                height: 160,
-                                width: 125,
-                                margin: const EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                      image: NetworkImage(
-                                          "http://localhost:8000/books/cover_images/book112.jpg")),
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: Light_Brown,
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Container(
+                                  width: 150,
+                                  height: 250,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      image: DecorationImage(
+                                          image: NetworkImage(
+                                              "$linkservername${item['cover']}"))),
                                 ),
-
-                                // ClipRRect(
-                                //   borderRadius: BorderRadius.circular(10),
-                                //   child: Image.network(
-                                //     "$linkservername${item['cover']}",
-                                //     fit: BoxFit.fill,
-                                //     errorBuilder: (context, error, stackTrace) {
-                                //       return const Center(
-                                //           child: Icon(Icons.error,
-                                //               color: Colors.brown));
-                                //     },
-                                //     loadingBuilder: (context, child, progress) {
-                                //       if (progress == null) {
-                                //         return child;
-                                //       } else {
-                                //         return const Center(
-                                //             child: CircularProgressIndicator());
-                                //       }
-                                //     },
-                                //   ),
-                                // ),
                               ),
                               const SizedBox(width: 20),
                               Expanded(

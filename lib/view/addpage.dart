@@ -1,41 +1,15 @@
-import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
-//import 'package:flutter/widgets.dart';
-import 'package:hello/constants/color.dart';
-
-class CustomFloatingActionButton extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return DottedBorder(
-      color: medium_Brown,
-      borderType: BorderType.RRect,
-      dashPattern: [6, 3],
-      strokeWidth: 3,
-      radius: Radius.circular(12),
-      child: InkWell(
-        onTap: () {},
-        child: Container(
-          width: 50.0,
-          height: 50.0,
-          decoration: BoxDecoration(
-            color: Beige,
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Center(
-            child: Icon(
-              Icons.add,
-              color: Colors.white,
-              size: 32.0,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
+import 'package:hello/core/Model/Detail_model.dart';
+import 'package:hello/core/Model/category.dart';
+import 'package:hello/core/Model/d_withFile.dart';
+import 'package:hello/core/constants/color.dart';
+import 'package:hello/core/constants/linksapi.dart';
+import 'package:hello/core/service/get_type.dart';
+import 'package:hello/core/service/service_category.dart';
+import 'package:hello/view/Details.dart';
+import 'package:hello/view/addBook.dart';
 
 //   late TabController _tabController;
-
 // Future<dynamic> alert_report(
 //       BuildContext context, TextEditingController noteCont) {
 //     return showDialog(
@@ -69,135 +43,238 @@ class CustomContainerTabs extends StatefulWidget {
 }
 
 class _CustomContainerTabsState extends State<CustomContainerTabs> {
-  int _selectedIndex = 0;
-
-  final List<String> _tabTitles = [
-    'Novel',
-    'Islamic',
-    'Kids',
-    'Human Development',
-    'Horror',
-    'Science',
-  ];
-
-  final List<Widget> _tabContents = [
-    GridViewExample(),
-    Center(child: Text(' Islamic')),
-    Center(child: Text(' Kids')),
-    Center(child: Text(' Human')),
-    Center(child: Text(' Horror')),
-    Center(child: Text(' Science')),
-  ];
+  ValueNotifier<int> indexOfType = ValueNotifier(1);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.only(top: 30, left: 30),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: List.generate(_tabTitles.length, (index) {
-                return GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      _selectedIndex = index; // تحديث التاب المحدد
-                    });
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: _selectedIndex == index ? Beege : white,
-                      borderRadius: BorderRadius.circular(25),
-                      border: Border.all(color: Beege, width: 2),
-                    ),
-                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 50),
-                    child: Center(
-                      child: Text(
-                        _tabTitles[index],
-                        style: TextStyle(
-                          fontSize: 17,
-                          color: _selectedIndex == index ? white : dark_Brown,
-                          fontWeight: FontWeight.bold,
+      body: FutureBuilder(
+          future: serviceUI().getAllCategories(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              List<CategoryModel> temp = snapshot.data as List<CategoryModel>;
+              return DefaultTabController(
+                  length: temp.length,
+                  child: Padding(
+                      padding: const EdgeInsets.only(top: 30, left: 30),
+                      child: Column(children: [
+                        SizedBox(
+                            height: 50,
+                            child: TabBar(
+                              dividerColor: no_color,
+                              indicator: BoxDecoration(),
+                              indicatorWeight: 0,
+                              onTap: (value) {
+                                indexOfType.value = value + 1;
+                              },
+                              tabAlignment: TabAlignment.start,
+                              indicatorColor: Colors.brown,
+                              unselectedLabelColor: Colors.grey,
+                              labelColor: Colors.brown,
+                              isScrollable: true,
+                              tabs: List.generate(
+                                temp.length,
+                                (index) => Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(25),
+                                    border:
+                                        Border.all(color: Beege, width: 1.2),
+                                  ),
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: 10, horizontal: 50),
+                                  child: Tab(
+                                    child: Text(
+                                      temp[index].name.toString(),
+                                      style: const TextStyle(fontSize: 18),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            )),
+                        SizedBox(
+                          height: 30,
                         ),
-                      ),
-                    ),
-                  ),
-                );
-              }),
-            ),
-            Expanded(
-              child: _tabContents[_selectedIndex],
-            ),
-            Padding(
-              padding: const EdgeInsets.only(right: 50, bottom: 40),
-              child: Align(
-                  alignment: Alignment.bottomRight,
-                  child: CustomFloatingActionButton()),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class GridViewExample extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return GridView.builder(
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 4,
-        crossAxisSpacing: 1,
-        mainAxisSpacing: 4,
-      ),
-      itemCount: 3,
-      itemBuilder: (BuildContext context, int index) {
-        return Padding(
-          padding: const EdgeInsets.only(
-            top: 40,
-            left: 50,
-          ),
-          child: GestureDetector(
-            onTap: () {
-              // alert_report(context,TextEditingController());
-            },
-            child: Stack(
-              children: [
-                Container(
-                  width: 200,
-                  height: 190,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: white,
-                    // border: Border.all(
-                    //    color: medium_Brown,
-                    //  ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Beige,
-                        offset: const Offset(0, 1),
-                        blurRadius: 10,
-                      )
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 8, left: 15, right: 10),
-                  child: Container(
-                    height: 110,
-                    width: 170,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Light_Brown,
-                    ),
-                  ),
-                )
-              ],
-            ),
-          ),
-        );
-      },
+                        ValueListenableBuilder(
+                          valueListenable: indexOfType,
+                          builder: (context, value, _) {
+                            return Flexible(
+                              child: FutureBuilder(
+                                future:
+                                    ServiceImmpl().getAllBook(value.toString()),
+                                builder: (context, snapshot) {
+                                  if (snapshot.hasData) {
+                                    List<DetailModel> temp =
+                                        snapshot.data as List<DetailModel>;
+                                    return TabBarView(
+                                      children: List.generate(
+                                        temp.length,
+                                        (index) => GridView.builder(
+                                          padding: EdgeInsets.all(10),
+                                          gridDelegate:
+                                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                            crossAxisCount: 5,
+                                            mainAxisSpacing: 10,
+                                            crossAxisSpacing: 10,
+                                            childAspectRatio: 0.7,
+                                          ),
+                                          itemCount: temp.length,
+                                          itemBuilder: (context, index) =>
+                                              Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Stack(
+                                              children: [
+                                                Container(
+                                                  width: 200,
+                                                  height: 230,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10),
+                                                    color: white,
+                                                    border: Border.all(
+                                                      color: medium_Brown,
+                                                    ),
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                        color: Light_Brown,
+                                                        offset:
+                                                            const Offset(0, 1),
+                                                        blurRadius: 10,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  child: Column(
+                                                    children: [
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .only(
+                                                          left: 10,
+                                                          top: 115,
+                                                        ),
+                                                        child: Text(
+                                                          temp[index]
+                                                              .title
+                                                              .toString(),
+                                                          style: TextStyle(
+                                                            fontSize: 14,
+                                                            color: dark_Brown,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .only(left: 10),
+                                                        child: Text(
+                                                          temp[index]
+                                                              .author_name
+                                                              .toString(),
+                                                          style: TextStyle(
+                                                            fontSize: 15,
+                                                            color: medium_Brown,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .only(left: 45),
+                                                        child: Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                            Text(
+                                                              "coffee beans: ${temp[index].points}",
+                                                              style: TextStyle(
+                                                                fontSize: 15,
+                                                                color:
+                                                                    medium_Brown,
+                                                              ),
+                                                            ),
+                                                            const SizedBox(
+                                                                width: 5),
+                                                            Image.asset(
+                                                              "assets/images/coin.png",
+                                                              scale: 5,
+                                                            ),
+                                                            const SizedBox(
+                                                                width: 4.0),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                    top: 6,
+                                                    left: 10,
+                                                    right: 10,
+                                                  ),
+                                                  child: InkWell(
+                                                    onTap: () {
+                                                      Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              BookDetailsPage(
+                                                            detail_File:
+                                                                Detail_withFile(
+                                                                    file: temp[
+                                                                        index]),
+                                                          ),
+                                                        ),
+                                                      );
+                                                      print(temp[index]);
+                                                    },
+                                                    child: Container(
+                                                      height: 110,
+                                                      width: 180,
+                                                      decoration: BoxDecoration(
+                                                        image: DecorationImage(
+                                                          image: NetworkImage(
+                                                            "$linkservername${temp[index].cover}",
+                                                          ),
+                                                          fit: BoxFit.fill,
+                                                        ),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10),
+                                                        color: Light_Brown,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  } else {
+                                    return const CircularProgressIndicator();
+                                  }
+                                },
+                              ),
+                            );
+                          },
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 50, bottom: 40),
+                          child: Align(
+                              alignment: Alignment.bottomRight,
+                              child: CustomFloatingActionButton()),
+                        ),
+                      ])));
+            } else {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+          }),
     );
   }
 }

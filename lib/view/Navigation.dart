@@ -1,6 +1,6 @@
 import 'package:easy_sidemenu/easy_sidemenu.dart';
 import 'package:flutter/material.dart';
-import 'package:hello/constants/color.dart';
+import 'package:hello/core/constants/color.dart';
 import 'package:hello/view/addpage.dart';
 import 'package:hello/view/auth/login.dart';
 import 'package:hello/view/homepage.dart';
@@ -114,13 +114,6 @@ class _SideMenueState extends State<SideMenue> {
                 },
               ),
               SideMenuItem(
-                title: 'Settings',
-                onTap: (index, _) {
-                  sideMenu.changePage(index);
-                },
-                icon: const Icon(Icons.settings),
-              ),
-              SideMenuItem(
                 onTap: (index, _) {
                   Navigator.push(
                     context,
@@ -152,12 +145,6 @@ class _SideMenueState extends State<SideMenue> {
                     const HomePage(),
                     CustomContainerTabs(),
                     Statistics(),
-                    const Center(
-                      child: Text(
-                        'Setting',
-                        style: TextStyle(fontSize: 35),
-                      ),
-                    ),
                   ],
                 ),
               ),

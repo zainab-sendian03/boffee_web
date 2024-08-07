@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:hello/constants/color.dart';
-import 'package:hello/constants/linksapi.dart';
+import 'package:hello/core/constants/color.dart';
+import 'package:hello/core/constants/linksapi.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:http/http.dart' as http;
 

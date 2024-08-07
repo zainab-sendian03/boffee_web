@@ -1,4 +1,5 @@
 String linkservername = "http://localhost:8000";
+String BaseUrl = "http://localhost:8000/api/";
 
 //auth
 String linklogin = "$linkservername/api/login";
@@ -14,3 +15,6 @@ String link_age = "$linkservername/api/ages";
 
 //book
 String link_mostRating = "$linkservername/api/mostRating";
+
+//rating
+String link_AVGrating = "$linkservername/api/avg";

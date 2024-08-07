@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:hello/config/options.dart';
+import 'package:hello/core/config/options.dart';
 import 'package:hello/view/Navigation.dart';
 import 'package:hello/view/auth/login.dart';
 //import 'package:hello/view/auth/login.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Setup();
+  await Setup();
   runApp(const MyApp());
 }
 
