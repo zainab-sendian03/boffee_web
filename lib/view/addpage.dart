@@ -37,17 +37,43 @@ import 'package:hello/view/addBook.dart';
 //             });
 //       }
 
-class CustomContainerTabs extends StatefulWidget {
+class allBooks extends StatefulWidget {
+  const allBooks({super.key});
+
   @override
-  _CustomContainerTabsState createState() => _CustomContainerTabsState();
+  _allBooksState createState() => _allBooksState();
 }
 
-class _CustomContainerTabsState extends State<CustomContainerTabs> {
+class _allBooksState extends State<allBooks> {
   ValueNotifier<int> indexOfType = ValueNotifier(1);
+  DetailModel? selectedBook;
+
+  void selectBook(DetailModel book) {
+    setState(() {
+      selectedBook = book;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: selectedBook != null
+          ? Padding(
+              padding: const EdgeInsets.only(left: 860),
+              child: Drawer(
+                elevation: 10,
+                shape: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                width: MediaQuery.of(context).size.width * 0.22,
+                child: BookDetailsPage(
+                  color: const Color.fromARGB(255, 252, 247, 242),
+                  width: MediaQuery.of(context).size.width * 0.5,
+                  detail_File: Detail_withFile(file: selectedBook!),
+                ),
+              ),
+            )
+          : null,
       body: FutureBuilder(
           future: serviceUI().getAllCategories(),
           builder: (context, snapshot) {
@@ -62,7 +88,7 @@ class _CustomContainerTabsState extends State<CustomContainerTabs> {
                             height: 50,
                             child: TabBar(
                               dividerColor: no_color,
-                              indicator: BoxDecoration(),
+                              indicator: const BoxDecoration(),
                               indicatorWeight: 0,
                               onTap: (value) {
                                 indexOfType.value = value + 1;
@@ -80,7 +106,7 @@ class _CustomContainerTabsState extends State<CustomContainerTabs> {
                                     border:
                                         Border.all(color: Beege, width: 1.2),
                                   ),
-                                  padding: EdgeInsets.symmetric(
+                                  padding: const EdgeInsets.symmetric(
                                       vertical: 10, horizontal: 50),
                                   child: Tab(
                                     child: Text(
@@ -91,7 +117,7 @@ class _CustomContainerTabsState extends State<CustomContainerTabs> {
                                 ),
                               ),
                             )),
-                        SizedBox(
+                        const SizedBox(
                           height: 30,
                         ),
                         ValueListenableBuilder(
@@ -107,9 +133,9 @@ class _CustomContainerTabsState extends State<CustomContainerTabs> {
                                         snapshot.data as List<DetailModel>;
                                     return TabBarView(
                                       children: List.generate(
-                                        temp.length,
+                                        6,
                                         (index) => GridView.builder(
-                                          padding: EdgeInsets.all(10),
+                                          padding: const EdgeInsets.all(10),
                                           gridDelegate:
                                               const SliverGridDelegateWithFixedCrossAxisCount(
                                             crossAxisCount: 5,
@@ -216,18 +242,10 @@ class _CustomContainerTabsState extends State<CustomContainerTabs> {
                                                   ),
                                                   child: InkWell(
                                                     onTap: () {
-                                                      Navigator.push(
-                                                        context,
-                                                        MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              BookDetailsPage(
-                                                            detail_File:
-                                                                Detail_withFile(
-                                                                    file: temp[
-                                                                        index]),
-                                                          ),
-                                                        ),
-                                                      );
+                                                      selectBook(temp[index]);
+                                                      Scaffold.of(context)
+                                                          .openDrawer();
+
                                                       print(temp[index]);
                                                     },
                                                     child: Container(

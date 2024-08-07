@@ -5,9 +5,16 @@ import 'package:hello/core/constants/color.dart';
 import 'package:hello/core/constants/crud.dart';
 import 'package:hello/core/constants/linksapi.dart';
 
+// ignore: must_be_immutable
 class BookDetailsPage extends StatefulWidget {
-  const BookDetailsPage({super.key, required this.detail_File});
+  BookDetailsPage(
+      {super.key,
+      required this.detail_File,
+      required this.width,
+      required this.color});
   final Detail_withFile detail_File;
+  final double width;
+  Color color;
 
   @override
   State<BookDetailsPage> createState() => _BookDetailsPageState();
@@ -103,248 +110,202 @@ class _BookDetailsPageState extends State<BookDetailsPage>
     get_AVG_rating();
   }
 
-//,required this.detailModel
   @override
   Widget build(
     BuildContext context,
   ) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: medium_Brown,
-        title: Text(
-          'Book Details',
-          style: TextStyle(color: dark_Brown),
-        ),
-        actions: [
-          IconButton(
-            color: white,
-            icon: const Icon(Icons.favorite_outline),
-            onPressed: () {
-              // اضف هنا الاكشن الذي تريده عند الضغط على أيقونة المفضلة
-            },
-          ),
-        ],
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back_outlined,
-            color: dark_Brown,
-            size: 35,
-          ),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        ),
-      ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              // صورة الكتاب
-              Padding(
-                padding: const EdgeInsets.only(left: 20, right: 10, top: 28),
-                child: Container(
-                  height: 200,
-                  width: 150,
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: NetworkImage(
-                            "http://localhost:8000${widget.detail_File.file!.cover}",
-                          ),
-                          fit: BoxFit.fill)),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 15, top: 35),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      widget.detail_File.file!.title.toString(),
-                      style: const TextStyle(
-                          fontSize: 24.0, fontWeight: FontWeight.bold),
-                    ),
-                    const SizedBox(height: 10.0),
-                    Text(
-                      widget.detail_File.file!.author_name.toString(),
-                      style: const TextStyle(fontSize: 18.0),
-                    ),
-                    const SizedBox(height: 10.0),
-                    Text(
-                      widget.detail_File.file!.total_pages.toString(),
-                      style: const TextStyle(fontSize: 18.0),
-                    ),
-                    const SizedBox(height: 10.0),
-                    const Text(
-                      'type',
-                      style: TextStyle(fontSize: 18.0),
-                    ),
-                    const SizedBox(height: 10.0),
-                    RatingBarIndicator(
-                      rating: avgRating,
-                      unratedColor: Colors.amber.withAlpha(50),
-                      itemCount: 5,
-                      itemSize: 30.0,
-                      itemBuilder: (context, _) => const Icon(
-                        Icons.star,
-                        color: Colors.amber,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 25),
-            child: TabBar(
-              tabAlignment: TabAlignment.start,
-              indicatorSize: TabBarIndicatorSize.label,
-              indicatorColor: Colors.brown,
-              unselectedLabelColor: Colors.grey,
-              labelColor: Colors.brown,
-              isScrollable: true,
-              controller: _tabController,
-              tabs: [
-                Tab(
-                  child: Text(
-                    'Info',
-                    style: TextStyle(fontSize: 18),
-                  ),
-                ),
-                Center(
-                  widthFactor: 2,
-                  child: Tab(
-                    child: Text(
-                      'Reviews',
-                      style: TextStyle(fontSize: 18),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Expanded(
-            child: TabBarView(
-              controller: _tabController,
-              children: [
-                Stack(
+    return SizedBox(
+      width: widget.width,
+      child: Scaffold(
+        body: Container(
+          color: widget.color,
+          child: Align(
+            alignment: Alignment.centerRight,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Column(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(
-                          bottom: 135, left: 25, right: 25),
+                      padding: const EdgeInsets.only(top: 20),
                       child: Center(
-                          child: Text(
-                        widget.detail_File.file!.description.toString(),
-                        style: const TextStyle(fontSize: 20),
-                      )),
-                    ),
-                    Padding(
-                      padding:
-                          const EdgeInsets.only(left: 10, right: 10, top: 20),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Padding(
-                              padding: const EdgeInsets.only(
-                                  bottom: 70, top: 300, left: 20),
-                              child: SizedBox(
-                                width: 130,
-                                height: 50,
-                                child: ElevatedButton(
-                                  style: ButtonStyle(
-                                    backgroundColor:
-                                        MaterialStateProperty.all<Color>(
-                                            Colors.brown),
-                                  ),
-                                  onPressed: () {},
-                                  child: Text(
-                                    'Read now',
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                      color: white,
-                                    ),
-                                  ),
+                        child: Container(
+                          height: 190,
+                          width: 130,
+                          decoration: BoxDecoration(
+                              boxShadow: [
+                                BoxShadow(
+                                  color: dark_Brown,
+                                  offset: const Offset(0, 1),
+                                  blurRadius: 10,
                                 ),
-                              )),
-                          Padding(
-                              padding: const EdgeInsets.only(
-                                top: 300,
-                                right: 20,
-                                bottom: 70,
-                              ),
-                              child: SizedBox(
-                                width: 130,
-                                height: 50,
-                                child: ElevatedButton(
-                                  style: ButtonStyle(
-                                    backgroundColor:
-                                        MaterialStateProperty.all<Color>(
-                                            no_color),
-                                    elevation: MaterialStateProperty.all(0),
-                                    side: MaterialStateProperty.all(
-                                        const BorderSide(color: Colors.brown)),
+                              ],
+                              borderRadius: BorderRadius.circular(20),
+                              image: DecorationImage(
+                                  image: NetworkImage(
+                                    "http://localhost:8000${widget.detail_File.file!.cover}",
                                   ),
-                                  onPressed: () {},
-                                  child: Text(
-                                    'Read Later',
-                                    style: TextStyle(
-                                      fontSize: 16.8,
-                                      color: medium_Brown,
-                                    ),
-                                  ),
-                                ),
-                              )),
-                        ],
-                      ),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        alert_report(context, TextEditingController());
-                      },
-                      child: const Text(
-                        'Report',
-                        style: TextStyle(
-                          fontSize: 18,
-                          color: Colors.grey,
+                                  fit: BoxFit.fill)),
                         ),
                       ),
                     ),
-                  ],
-                ),
-                Stack(
-                  children: [
-                    ListView(
-                      scrollDirection: Axis.vertical,
-                      children: <Widget>[
+                    const SizedBox(height: 10.0),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
                         Padding(
-                          padding: const EdgeInsets.only(
-                              left: 30, right: 30, top: 30),
-                          child: Container(
-                            decoration: BoxDecoration(
-                                color: offwhite,
-                                borderRadius: BorderRadius.circular(10),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Light_Brown,
-                                    offset: const Offset(0, 5),
-                                    blurRadius: 10,
-                                    // spreadRadius: 10,
-                                  )
-                                ]),
-                            height: 140,
-                            width: 20,
+                          padding: const EdgeInsets.only(top: 10),
+                          child: Text(
+                            widget.detail_File.file!.title.toString(),
+                            style: const TextStyle(
+                                letterSpacing: 1,
+                                fontSize: 25.0,
+                                fontWeight: FontWeight.bold),
                           ),
+                        ),
+                        const SizedBox(height: 10.0),
+                        RatingBarIndicator(
+                          rating: avgRating,
+                          unratedColor: Colors.amber.withAlpha(50),
+                          itemCount: 5,
+                          itemSize: 30.0,
+                          itemBuilder: (context, _) => const Icon(
+                            Icons.star_border,
+                            color: Colors.amber,
+                          ),
+                        ),
+                        const SizedBox(height: 10.0),
+                        Text(
+                          "Author: ${widget.detail_File.file!.author_name}",
+                          style: TextStyle(
+                            fontSize: 18.0,
+                            color: dark_Brown,
+                          ),
+                        ),
+                        const SizedBox(height: 10.0),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Pages: ${widget.detail_File.file!.total_pages}",
+                              style: TextStyle(
+                                fontSize: 18.0,
+                                color: dark_Brown,
+                              ),
+                            ),
+                            const SizedBox(width: 50),
+                            Text(
+                              "coffee beans: ${widget.detail_File.file!.points}",
+                              style: TextStyle(
+                                fontSize: 18.0,
+                                color: dark_Brown,
+                              ),
+                            ),
+                            const SizedBox(width: 5),
+                            Image.asset(
+                              "assets/images/coin.png",
+                              scale: 5,
+                            ),
+                          ],
                         ),
                       ],
                     ),
                   ],
                 ),
+                Stack(
+                  children: [
+                    Padding(
+                        padding: const EdgeInsets.only(
+                          top: 28,
+                          left: 290,
+                        ),
+                        child: IconButton(
+                          icon: Icon(
+                            Icons.edit,
+                            color: dark_Brown,
+                          ),
+                          onPressed: () {},
+                        )),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 20),
+                      child: TabBar(
+                        tabAlignment: TabAlignment.start,
+                        indicatorSize: TabBarIndicatorSize.label,
+                        indicatorColor: dark_Brown,
+                        unselectedLabelColor: Colors.grey,
+                        labelColor: dark_Brown,
+                        isScrollable: true,
+                        controller: _tabController,
+                        tabs: const [
+                          Tab(
+                            child: Text(
+                              'Info',
+                              style: TextStyle(fontSize: 18),
+                            ),
+                          ),
+                          Tab(
+                            child: Text(
+                              'Reviews',
+                              style: TextStyle(fontSize: 18),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                Expanded(
+                  child: TabBarView(
+                    controller: _tabController,
+                    children: [
+                      Stack(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                bottom: 135, left: 25, right: 25),
+                            child: Center(
+                                child: Text(
+                              widget.detail_File.file!.description.toString(),
+                              style: const TextStyle(fontSize: 20),
+                            )),
+                          ),
+                        ],
+                      ),
+                      Stack(
+                        children: [
+                          ListView(
+                            scrollDirection: Axis.vertical,
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 30, right: 30, top: 30),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      color: offwhite,
+                                      borderRadius: BorderRadius.circular(10),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Light_Brown,
+                                          offset: const Offset(0, 5),
+                                          blurRadius: 10,
+                                          // spreadRadius: 10,
+                                        )
+                                      ]),
+                                  height: 140,
+                                  width: 20,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
-        ],
+        ),
       ),
     );
   }

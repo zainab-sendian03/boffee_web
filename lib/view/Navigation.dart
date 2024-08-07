@@ -1,6 +1,8 @@
 import 'package:easy_sidemenu/easy_sidemenu.dart';
 import 'package:flutter/material.dart';
+import 'package:hello/core/config/options.dart';
 import 'package:hello/core/constants/color.dart';
+import 'package:hello/core/service/logout.dart';
 import 'package:hello/view/addpage.dart';
 import 'package:hello/view/auth/login.dart';
 import 'package:hello/view/homepage.dart';
@@ -27,6 +29,88 @@ class _SideMenueState extends State<SideMenue> {
     super.initState();
   }
 
+  Future<dynamic> alert(BuildContext context) {
+    return showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) {
+          return SizedBox(
+            height: 300,
+            width: 350,
+            child: AlertDialog(
+              backgroundColor: Color(0xFFFFF8F1),
+              elevation: 0,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20)),
+              icon: const Icon(
+                Icons.error,
+                size: 50,
+                color: Color(0xFF94745B),
+              ),
+              content: const Text(
+                "Are you sure you want to log out?",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+              actions: <Widget>[
+                Center(
+                  child: Row(
+                    children: [
+                      ElevatedButton(
+                        onPressed: () {
+                          logout();
+                          pref!.clear();
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const LoginPage()),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: medium_Brown,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(25)),
+                            padding: const EdgeInsets.only(
+                                left: 40, right: 40, top: 15, bottom: 15)),
+                        child: const Text("LogOut",
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.white,
+                            )),
+                      ),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: no_color,
+                            elevation: 0,
+                            shape: RoundedRectangleBorder(
+                                side: BorderSide(color: medium_Brown),
+                                borderRadius: BorderRadius.circular(25)),
+                            padding: const EdgeInsets.only(
+                                left: 40, right: 40, top: 15, bottom: 15)),
+                        child: Text("Cancel",
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: medium_Brown,
+                            )),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,7 +131,6 @@ class _SideMenueState extends State<SideMenue> {
                 color: dark_Brown,
               ),
               selectedIconColor: dark_Brown,
-
               backgroundColor: Light_Brown,
             ),
             title: Column(
@@ -115,10 +198,7 @@ class _SideMenueState extends State<SideMenue> {
               ),
               SideMenuItem(
                 onTap: (index, _) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const LoginPage()),
-                  );
+                  alert(context);
                 },
                 title: 'Exit',
                 icon: const Icon(Icons.exit_to_app),
@@ -141,9 +221,9 @@ class _SideMenueState extends State<SideMenue> {
                 ),
                 child: PageView(
                   controller: pageController,
-                  children: [
-                    const HomePage(),
-                    CustomContainerTabs(),
+                  children: const [
+                    HomePage(),
+                    allBooks(),
                     Statistics(),
                   ],
                 ),
