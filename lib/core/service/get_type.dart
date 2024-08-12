@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:hello/core/Model/Detail_model.dart';
 import 'package:hello/core/Model/book_model.dart';
+import 'package:hello/core/config/options.dart';
 import 'package:hello/core/constants/linksapi.dart';
 
 abstract class BookService {
@@ -33,7 +34,8 @@ class ServiceImmpl extends BookService {
   @override
   Future<List<DetailModel>> getAllBook(String id) async {
     try {
-      response = await dio.get('${BaseUrl}books/type/${id}');
+      response = await dio.get('${BaseUrl}books/type/${id}',
+          options: Options(headers: getoptions2()));
       print(response);
       if (response.statusCode == 200) {
         List<DetailModel> book_model = List.generate(

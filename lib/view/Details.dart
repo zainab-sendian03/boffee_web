@@ -212,47 +212,31 @@ class _BookDetailsPageState extends State<BookDetailsPage>
                     ),
                   ],
                 ),
-                Stack(
-                  children: [
-                    Padding(
-                        padding: const EdgeInsets.only(
-                          top: 28,
-                          left: 290,
+                Padding(
+                  padding: const EdgeInsets.only(top: 20),
+                  child: TabBar(
+                    tabAlignment: TabAlignment.start,
+                    indicatorSize: TabBarIndicatorSize.label,
+                    indicatorColor: dark_Brown,
+                    unselectedLabelColor: Colors.grey,
+                    labelColor: dark_Brown,
+                    isScrollable: true,
+                    controller: _tabController,
+                    tabs: const [
+                      Tab(
+                        child: Text(
+                          'Info',
+                          style: TextStyle(fontSize: 18),
                         ),
-                        child: IconButton(
-                          icon: Icon(
-                            Icons.edit,
-                            color: dark_Brown,
-                          ),
-                          onPressed: () {},
-                        )),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 20),
-                      child: TabBar(
-                        tabAlignment: TabAlignment.start,
-                        indicatorSize: TabBarIndicatorSize.label,
-                        indicatorColor: dark_Brown,
-                        unselectedLabelColor: Colors.grey,
-                        labelColor: dark_Brown,
-                        isScrollable: true,
-                        controller: _tabController,
-                        tabs: const [
-                          Tab(
-                            child: Text(
-                              'Info',
-                              style: TextStyle(fontSize: 18),
-                            ),
-                          ),
-                          Tab(
-                            child: Text(
-                              'Reviews',
-                              style: TextStyle(fontSize: 18),
-                            ),
-                          ),
-                        ],
                       ),
-                    ),
-                  ],
+                      Tab(
+                        child: Text(
+                          'Reviews',
+                          style: TextStyle(fontSize: 18),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
                 Expanded(
                   child: TabBarView(
@@ -288,7 +272,6 @@ class _BookDetailsPageState extends State<BookDetailsPage>
                                           color: Light_Brown,
                                           offset: const Offset(0, 5),
                                           blurRadius: 10,
-                                          // spreadRadius: 10,
                                         )
                                       ]),
                                   height: 140,

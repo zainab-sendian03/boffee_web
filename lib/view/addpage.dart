@@ -9,34 +9,6 @@ import 'package:hello/core/service/service_category.dart';
 import 'package:hello/view/Details.dart';
 import 'package:hello/view/addBook.dart';
 
-//   late TabController _tabController;
-// Future<dynamic> alert_report(
-//       BuildContext context, TextEditingController noteCont) {
-//     return showDialog(
-//         barrierDismissible: false,
-//         context: context,
-//         builder: (context) {
-//           return AlertDialog(
-//             backgroundColor: const Color(0xFFFFF8F1),
-//             elevation: 0,
-//             shape:
-//                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-//             content: SizedBox(
-//               width: MediaQuery.of(context).size.width * 0.65,
-//               height: MediaQuery.of(context).size.height * 0.2,
-//               child: TextFormField(
-//                 showCursor: false,
-//                 maxLines: 10,
-//                 controller: noteCont,
-//                 decoration: const InputDecoration(
-//                     border: InputBorder.none,
-//                     hintText: "write your report....",
-//                     hintStyle: TextStyle(color: Color(0XFFA5A5A5))),
-//               ),
-//             ),);
-//             });
-//       }
-
 class allBooks extends StatefulWidget {
   const allBooks({super.key});
 
@@ -47,76 +19,70 @@ class allBooks extends StatefulWidget {
 class _allBooksState extends State<allBooks> {
   ValueNotifier<int> indexOfType = ValueNotifier(1);
   DetailModel? selectedBook;
+  bool isDrawerOpen = false;
 
   void selectBook(DetailModel book) {
     setState(() {
       selectedBook = book;
+      isDrawerOpen = true;
+    });
+  }
+
+  void closeDrawer() {
+    setState(() {
+      isDrawerOpen = false;
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: selectedBook != null
-          ? Padding(
-              padding: const EdgeInsets.only(left: 860),
-              child: Drawer(
-                elevation: 10,
-                shape: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                width: MediaQuery.of(context).size.width * 0.22,
-                child: BookDetailsPage(
-                  color: const Color.fromARGB(255, 252, 247, 242),
-                  width: MediaQuery.of(context).size.width * 0.5,
-                  detail_File: Detail_withFile(file: selectedBook!),
-                ),
-              ),
-            )
-          : null,
-      body: FutureBuilder(
-          future: serviceUI().getAllCategories(),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              List<CategoryModel> temp = snapshot.data as List<CategoryModel>;
-              return DefaultTabController(
+      body: Stack(
+        children: [
+          FutureBuilder(
+            future: serviceUI().getAllCategories(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                List<CategoryModel> temp = snapshot.data as List<CategoryModel>;
+                return DefaultTabController(
                   length: temp.length,
                   child: Padding(
-                      padding: const EdgeInsets.only(top: 30, left: 30),
-                      child: Column(children: [
+                    padding: const EdgeInsets.only(top: 30, left: 30),
+                    child: Column(
+                      children: [
                         SizedBox(
-                            height: 50,
-                            child: TabBar(
-                              dividerColor: no_color,
-                              indicator: const BoxDecoration(),
-                              indicatorWeight: 0,
-                              onTap: (value) {
-                                indexOfType.value = value + 1;
-                              },
-                              tabAlignment: TabAlignment.start,
-                              indicatorColor: Colors.brown,
-                              unselectedLabelColor: Colors.grey,
-                              labelColor: Colors.brown,
-                              isScrollable: true,
-                              tabs: List.generate(
-                                temp.length,
-                                (index) => Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(25),
-                                    border:
-                                        Border.all(color: Beege, width: 1.2),
-                                  ),
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 10, horizontal: 50),
-                                  child: Tab(
-                                    child: Text(
-                                      temp[index].name.toString(),
-                                      style: const TextStyle(fontSize: 18),
-                                    ),
+                          height: 50,
+                          child: TabBar(
+                            dividerColor: no_color,
+                            indicator: const BoxDecoration(),
+                            indicatorWeight: 0,
+                            onTap: (value) {
+                              indexOfType.value = value + 1;
+                            },
+                            tabAlignment: TabAlignment.start,
+                            indicatorColor: Colors.brown,
+                            unselectedLabelColor: Colors.grey,
+                            labelColor: Colors.brown,
+                            isScrollable: true,
+                            tabs: List.generate(
+                              temp.length,
+                              (index) => Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(25),
+                                  border: Border.all(color: Beege, width: 1.2),
+                                ),
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 10, horizontal: 50),
+                                child: Tab(
+                                  child: Text(
+                                    temp[index].name.toString(),
+                                    style: const TextStyle(fontSize: 18),
                                   ),
                                 ),
                               ),
-                            )),
+                            ),
+                          ),
+                        ),
                         const SizedBox(
                           height: 30,
                         ),
@@ -243,9 +209,6 @@ class _allBooksState extends State<allBooks> {
                                                   child: InkWell(
                                                     onTap: () {
                                                       selectBook(temp[index]);
-                                                      Scaffold.of(context)
-                                                          .openDrawer();
-
                                                       print(temp[index]);
                                                     },
                                                     child: Container(
@@ -286,13 +249,64 @@ class _allBooksState extends State<allBooks> {
                               alignment: Alignment.bottomRight,
                               child: CustomFloatingActionButton()),
                         ),
-                      ])));
-            } else {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-          }),
+                      ],
+                    ),
+                  ),
+                );
+              } else {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+            },
+          ),
+          if (isDrawerOpen && selectedBook != null)
+            Positioned(
+              right: 0,
+              top: 0,
+              bottom: 0,
+              child: GestureDetector(
+                onTap: () {
+                  closeDrawer();
+                },
+                child: Container(
+                  width: MediaQuery.of(context).size.width * 0.22,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30),
+                    boxShadow: [
+                      BoxShadow(
+                        color: medium_Brown,
+                        offset: const Offset(0, 1),
+                        blurRadius: 10,
+                      ),
+                    ],
+                    color: offwhite,
+                  ),
+                  child: Stack(
+                    children: [
+                      BookDetailsPage(
+                        color: offwhite,
+                        width: MediaQuery.of(context).size.width * 0.5,
+                        detail_File: Detail_withFile(file: selectedBook!),
+                      ),
+                      Positioned(
+                        top: 10,
+                        right: 10,
+                        child: IconButton(
+                          icon: Icon(
+                            Icons.disabled_by_default_outlined,
+                            color: medium_Brown,
+                          ),
+                          onPressed: closeDrawer,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+        ],
+      ),
     );
   }
 }

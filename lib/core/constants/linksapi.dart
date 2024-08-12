@@ -12,6 +12,7 @@ String link_Reset = "$linkservername/api/password/reset";
 //statistics
 String link_levels = "$linkservername/api/level/count";
 String link_age = "$linkservername/api/ages";
+String link_types = "$linkservername/api/type/count";
 
 //book
 String link_mostRating = "$linkservername/api/mostRating";
